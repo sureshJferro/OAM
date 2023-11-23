@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "D:\\Learnings\\Suresh Works\\OAM-API\\OAM.Core\\OAM.Core.csproj": {}
+    "D:\\Learnings\\Suresh-Works\\OAM.Core\\OAM.Core.csproj": {}
   },
   "projects": {
-    "D:\\Learnings\\Suresh Works\\OAM-API\\OAM.Core\\OAM.Core.csproj": {
+    "D:\\Learnings\\Suresh-Works\\OAM.Core\\OAM.Core.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "D:\\Learnings\\Suresh Works\\OAM-API\\OAM.Core\\OAM.Core.csproj",
+        "projectUniqueName": "D:\\Learnings\\Suresh-Works\\OAM.Core\\OAM.Core.csproj",
         "projectName": "OAM.Core",
-        "projectPath": "D:\\Learnings\\Suresh Works\\OAM-API\\OAM.Core\\OAM.Core.csproj",
+        "projectPath": "D:\\Learnings\\Suresh-Works\\OAM.Core\\OAM.Core.csproj",
         "packagesPath": "C:\\Users\\suresh.janakiraman\\.nuget\\packages\\",
-        "outputPath": "D:\\Learnings\\Suresh Works\\OAM-API\\OAM.Core\\obj\\",
+        "outputPath": "D:\\Learnings\\Suresh-Works\\OAM.Core\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
           "C:\\Users\\suresh.janakiraman\\AppData\\Roaming\\NuGet\\NuGet.Config",
@@ -39,6 +39,32 @@
       "frameworks": {
         "net7.0": {
           "targetAlias": "net7.0",
+          "dependencies": {
+            "Microsoft.EntityFrameworkCore": {
+              "target": "Package",
+              "version": "[7.0.14, )"
+            },
+            "Microsoft.EntityFrameworkCore.Design": {
+              "include": "Runtime, Build, Native, ContentFiles, Analyzers, BuildTransitive",
+              "suppressParent": "All",
+              "target": "Package",
+              "version": "[7.0.14, )"
+            },
+            "Microsoft.EntityFrameworkCore.Relational": {
+              "target": "Package",
+              "version": "[7.0.14, )"
+            },
+            "Microsoft.EntityFrameworkCore.SqlServer": {
+              "target": "Package",
+              "version": "[7.0.14, )"
+            },
+            "Microsoft.EntityFrameworkCore.Tools": {
+              "include": "Runtime, Build, Native, ContentFiles, Analyzers, BuildTransitive",
+              "suppressParent": "All",
+              "target": "Package",
+              "version": "[7.0.14, )"
+            }
+          },
           "imports": [
             "net461",
             "net462",
