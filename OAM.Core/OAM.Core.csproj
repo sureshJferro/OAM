@@ -11,7 +11,6 @@
     <Folder Include="BAL\IService\" />
     <Folder Include="DAL\Repository\" />
     <Folder Include="DAL\IRepository\" />
-    <Folder Include="Entities\" />
     <Folder Include="Models\" />
   </ItemGroup>
 
