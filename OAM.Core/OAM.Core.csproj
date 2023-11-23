@@ -6,4 +6,13 @@
     <Nullable>enable</Nullable>
   </PropertyGroup>
 
+  <ItemGroup>
+    <Folder Include="BAL\Service\" />
+    <Folder Include="BAL\IService\" />
+    <Folder Include="DAL\Repository\" />
+    <Folder Include="DAL\IRepository\" />
+    <Folder Include="Entities\" />
+    <Folder Include="Models\" />
+  </ItemGroup>
+
 </Project>
