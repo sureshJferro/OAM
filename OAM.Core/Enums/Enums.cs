@@ -24,7 +24,13 @@ namespace OAM.Core.Enums
             [Display(Name = "Successful API Call")]
             Success,
             [Display(Name = "Bad Request")]
-            Bad_Request
+            Bad_Request,
+            [Display(Name = "Saved Successfully")]
+            Saved,
+            [Display(Name = "Updated Successfully")]
+            Updated,
+            [Display(Name = "User Already Exists")]
+            DuplicateUser
 
         }
     }

@@ -1,9 +1,12 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Azure;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore.Metadata.Internal;
 using OAM.Core.BAL.IService;
 using OAM.Core.Entities;
 using OAM.Core.Models.Base_Models;
 using OAM.Core.Models.Base_Models.API_Requests;
+using OAM.Core.Models.Base_Models.API_Responses;
+using System.Net;
 
 namespace OAM_API.Controllers
 {
@@ -15,7 +18,6 @@ namespace OAM_API.Controllers
         private readonly IConfiguration _configuration;
         private readonly IUserService _userService;
 
-
         //Constructor
         public UserController( IConfiguration configuration,IUserService userService) { 
         
@@ -25,18 +27,39 @@ namespace OAM_API.Controllers
 
         [HttpPost]
         [Route("Register")]
-        public async Task<ApiBaseResponse> Register(RegisterRequest registerRequest)
+        public async Task<RegisterResponse> Register(RegisterRequest registerRequest)
         {
-            ApiBaseResponse apiBaseResponse = new ApiBaseResponse();
+            RegisterResponse registerResponse = new RegisterResponse();
             if (!ModelState.IsValid)
             {
                 BadRequest(ModelState);
             }
             else
             {
-                apiBaseResponse=await _userService.Register(registerRequest);
+                registerResponse = await _userService.Register(registerRequest);
             }
-            return apiBaseResponse;
+            //For Postman Status Code
+            if (registerResponse.StatusCode == (int)HttpStatusCode.BadRequest)
+            {
+                 BadRequest(registerResponse);
+            }
+            return registerResponse;
+        }
+
+        [HttpPut]
+        [Route("UpdateUser")]
+        public async Task<RegisterResponse> UpdateUser(RegisterRequest updateUser)
+        {
+            RegisterResponse updateUserResponse = new RegisterResponse();
+            if (!ModelState.IsValid)
+            {
+                BadRequest(ModelState);
+            }
+            else
+            {
+                updateUserResponse = await _userService.Register(updateUser);
+            }
+            return updateUserResponse;
         }
     }
 }

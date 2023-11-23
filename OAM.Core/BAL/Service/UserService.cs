@@ -4,6 +4,7 @@ using OAM.Core.DAL.IRepository;
 using OAM.Core.Entities;
 using OAM.Core.Models.Base_Models;
 using OAM.Core.Models.Base_Models.API_Requests;
+using OAM.Core.Models.Base_Models.API_Responses;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -24,11 +25,12 @@ namespace OAM.Core.BAL.Service
            _userRepository = userRepository;
         }
 
-        public async Task<ApiBaseResponse> Register(RegisterRequest request)
+        public async Task<RegisterResponse> Register(RegisterRequest request)
         {
             CreatePasswordHash(request.Password, out byte[] passwordHash, out byte[] passwordSalt);
             User user = new User
             {
+                Id = request.Id,
                 Email = request.Email,
                 UserName = request.Name,
                 PasswordHash =passwordHash,

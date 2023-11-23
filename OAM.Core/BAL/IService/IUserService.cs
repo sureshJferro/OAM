@@ -1,5 +1,6 @@
 ﻿using OAM.Core.Models.Base_Models;
 using OAM.Core.Models.Base_Models.API_Requests;
+using OAM.Core.Models.Base_Models.API_Responses;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -10,6 +11,6 @@ namespace OAM.Core.BAL.IService
 {
    public interface IUserService
     {
-        Task<ApiBaseResponse> Register(RegisterRequest registerRequest);
+        Task<RegisterResponse> Register(RegisterRequest registerRequest);
     }
 }

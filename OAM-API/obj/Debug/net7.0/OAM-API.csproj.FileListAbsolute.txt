@@ -109,3 +109,4 @@ D:\Learnings\Suresh-Works\OAM-API\bin\Debug\net7.0\runtimes\win\lib\net6.0\Syste
 D:\Learnings\Suresh-Works\OAM-API\bin\Debug\net7.0\runtimes\win\lib\net6.0\System.Windows.Extensions.dll
 D:\Learnings\Suresh-Works\OAM-API\bin\Debug\net7.0\OAM.Core.dll
 D:\Learnings\Suresh-Works\OAM-API\bin\Debug\net7.0\OAM.Core.pdb
+D:\Learnings\Suresh-Works\OAM-API\bin\Debug\net7.0\Newtonsoft.Json.dll

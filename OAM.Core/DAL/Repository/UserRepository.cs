@@ -1,10 +1,13 @@
 ﻿using OAM.Core.DAL.IRepository;
 using OAM.Core.Entities;
+using OAM.Core.Helpers;
 using OAM.Core.Models.Base_Models;
+using OAM.Core.Models.Base_Models.API_Responses;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Net;
+using System.Reflection.Metadata.Ecma335;
 using System.Text;
 using System.Threading.Tasks;
 using static OAM.Core.Enums.Enums;
@@ -21,25 +24,48 @@ namespace OAM.Core.DAL.Repository
         {
             _devContext = devContext;
         }
-        public async Task<ApiBaseResponse> Register(User user)
+        public async Task<RegisterResponse> Register(User user)
         {
-            ApiBaseResponse apiBaseResponse = new ApiBaseResponse();
-            _devContext.Users.Add(user);
-            _devContext.SaveChanges();
-            if (user.Id > 0)
+            RegisterResponse response = new RegisterResponse();
+            response.Status = HttpStatusCode.OK.ToString();
+            response.StatusCode = (int)HttpStatusCode.OK;
+            if (user != null)
             {
-                apiBaseResponse.Status =HttpStatusCode.OK.ToString();
-                apiBaseResponse.StatusCode =(int)HttpStatusCode.OK;
-                apiBaseResponse.Message = StatusMessage.Success.ToString();
+                User? dbuser = _devContext.Users.Where(x => x.Id == user.Id).SingleOrDefault();
+                if (dbuser != null)
+                {
+                    //Update Logic If ID Exists
+                    dbuser.UserName = user.UserName;
+                    dbuser.PasswordSalt = user.PasswordSalt;
+                    dbuser.PasswordHash = user.PasswordHash;
+                    response.Message = Utility.GetEnumDisplayName(StatusMessage.Updated);
+                }
+                else
+                {
+                    //Check Is User Already Exists
+                    bool isDuplicate = _devContext.Users.Where(x => x.Email.ToLower() == user.Email.ToLower() && x.UserName.ToLower() == user.UserName.ToLower()).Any();
+                    if (isDuplicate)
+                    {
+                        response.Status = HttpStatusCode.BadRequest.ToString();
+                        response.StatusCode = (int)HttpStatusCode.BadRequest;
+                        response.Message = Utility.GetEnumDisplayName(StatusMessage.DuplicateUser);
+                    }
+                    else
+                    {
+                        //Save Logic If ID doesn't Exists
+                        _devContext.Users.Add(user);
+                        response.Message = Utility.GetEnumDisplayName(StatusMessage.Saved);
+                    }
+                }
+                _devContext.SaveChanges();
+                response.userDetails = new UserDetails()
+                {
+                    Name = user.UserName,
+                    EmailAddress = user.Email,
+                    CreatedTime = DateTime.Now
+                };
             }
-            else
-            {
-                apiBaseResponse.Status =HttpStatusCode.BadRequest.ToString();
-                apiBaseResponse.StatusCode = (int)HttpStatusCode.BadRequest;
-                apiBaseResponse.Message = StatusMessage.Bad_Request.ToString();
-            }
-
-            return apiBaseResponse;
+            return response;
         }
     }
 }
