@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using Microsoft.EntityFrameworkCore;
 
-namespace OAM_API.Entities;
+namespace OAM.Core.Entities;
 
 public partial class OamDevContext : DbContext
 {

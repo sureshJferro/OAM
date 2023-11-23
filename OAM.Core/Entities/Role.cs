@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 
-namespace OAM_API.Entities;
+namespace OAM.Core.Entities;
 
 public partial class Role
 {
