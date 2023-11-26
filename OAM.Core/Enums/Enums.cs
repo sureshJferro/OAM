@@ -30,7 +30,9 @@ namespace OAM.Core.Enums
             [Display(Name = "Updated Successfully")]
             Updated,
             [Display(Name = "User Already Exists")]
-            DuplicateUser
+            DuplicateUser,
+            [Display(Name = "Invalid Ip Address")]
+            InvalidIP
 
         }
     }

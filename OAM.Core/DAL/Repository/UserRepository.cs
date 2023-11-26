@@ -38,6 +38,7 @@ namespace OAM.Core.DAL.Repository
                     dbuser.UserName = user.UserName;
                     dbuser.PasswordSalt = user.PasswordSalt;
                     dbuser.PasswordHash = user.PasswordHash;
+                    dbuser.UpdatedTimeStamp = DateTime.Now;
                     response.Message = Utility.GetEnumDisplayName(StatusMessage.Updated);
                 }
                 else

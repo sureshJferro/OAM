@@ -1,4 +1,6 @@
-﻿using Microsoft.Extensions.DependencyInjection;
+﻿using Microsoft.AspNetCore.Http;
+using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.DependencyInjection.Extensions;
 using OAM.Core.BAL.IService;
 using OAM.Core.BAL.Service;
 using OAM.Core.DAL.IRepository;
@@ -16,12 +18,15 @@ namespace OAM.Core.Resolver
     {
         public static IServiceCollection AddCustomServices(this IServiceCollection services)
         {
-            // Register your services and repositories here
-            services.AddScoped<IUserRepository, UserRepository>();
+            // Register your services here
+           
             services.AddTransient<IUserService, UserService>();
+            services.AddTransient<ICommonService, CommonService>();
 
-            // Add more registrations as needed
-
+            // Register your repositories here
+            services.AddScoped<IUserRepository, UserRepository>();
+            services.AddScoped<ICommonRepository, CommonRepository>();
+            services.AddSingleton<IHttpContextAccessor, HttpContextAccessor>();
             return services;
         }
     }

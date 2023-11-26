@@ -31,11 +31,12 @@ namespace OAM.Core.BAL.Service
             User user = new User
             {
                 Id = request.Id,
+                UserId = Guid.NewGuid(),
                 Email = request.Email,
                 UserName = request.Name,
                 PasswordHash =passwordHash,
                 PasswordSalt =passwordSalt,
-                RoleId = 1
+                RoleId = 1 //Default As Admin
             };
             return await _userRepository.Register(user);
         }

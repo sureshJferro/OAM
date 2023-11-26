@@ -16,4 +16,12 @@ public partial class User
     public byte[] PasswordSalt { get; set; } = null!;
 
     public int RoleId { get; set; }
+
+    public Guid? UserId { get; set; }
+
+    public DateTime? CreatedTimeStamp { get; set; }
+
+    public DateTime? UpdatedTimeStamp { get; set; }
+
+    public DateTime? IsDeleted { get; set; }
 }
