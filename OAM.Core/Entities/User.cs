@@ -23,5 +23,5 @@ public partial class User
 
     public DateTime? UpdatedTimeStamp { get; set; }
 
-    public DateTime? IsDeleted { get; set; }
+    public bool? IsDeleted { get; set; }
 }

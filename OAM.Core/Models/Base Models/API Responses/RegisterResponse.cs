@@ -20,12 +20,15 @@ namespace OAM.Core.Models.Base_Models.API_Responses
         public int Id { get; set; }
 
         [DataMember(Order = 1)]
+        public Guid UserId { get; set; }
+        
+        [DataMember(Order = 2)]
         public string Name { get; set; }
 
-        [DataMember(Order = 2)]
+        [DataMember(Order = 3)]
         public string EmailAddress { get; set; }
 
-        [DataMember(Order = 3)]
+        [DataMember(Order = 4)]
         public DateTime CreatedTime { get; set; }
     }
 }

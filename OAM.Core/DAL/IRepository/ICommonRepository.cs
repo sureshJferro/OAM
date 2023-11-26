@@ -9,5 +9,6 @@ namespace OAM.Core.DAL.IRepository
     public interface ICommonRepository
     {
         bool IsValidIpAddress(string IpAddress);
+        string GetAppSettings(string appKey);
     }
 }

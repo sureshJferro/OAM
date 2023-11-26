@@ -62,6 +62,7 @@ namespace OAM.Core.DAL.Repository
                 response.userDetails = new UserDetails()
                 {
                     Name = user.UserName,
+                    UserId = Utility.GetGuid(user.UserId),
                     EmailAddress = user.Email,
                     CreatedTime = DateTime.Now
                 };

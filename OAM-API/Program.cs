@@ -30,4 +30,9 @@ app.UseMiddleware<IpFilterMiddleware>();
 
 app.MapControllers();
 
+#region Minimal API Samples
+app.MapGet("/GetUsersList", (OamDevContext db) => db.Users.ToList());
+app.MapGet("/GetUser/{id}", (OamDevContext db,int id) => db.Users.Where(x=>x.Id==id).SingleOrDefault());
+#endregion
+
 app.Run();

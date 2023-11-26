@@ -9,5 +9,6 @@ namespace OAM.Core.BAL.IService
     public interface ICommonService
     {
         bool IsValidIpAddress(string IpAddress);
+        string GetAppSettings(string appKey);
     }
 }

@@ -3,6 +3,7 @@ using OAM.Core.DAL.IRepository;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Net;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -23,6 +24,13 @@ namespace OAM.Core.BAL.Service
         public bool IsValidIpAddress(string IpAddress)
         {
             return _commonRepository.IsValidIpAddress(IpAddress);
+        }
+        #endregion
+
+        #region Get App Settings
+        public string GetAppSettings(string appKey)
+        {
+            return _commonRepository.GetAppSettings(appKey); 
         }
         #endregion
     }

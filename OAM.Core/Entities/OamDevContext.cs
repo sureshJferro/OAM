@@ -39,11 +39,11 @@ public partial class OamDevContext : DbContext
             entity.Property(e => e.Email).HasMaxLength(450);
             entity.Property(e => e.IsDeleted)
                 .HasDefaultValueSql("((0))")
-                .HasColumnType("datetime")
                 .HasColumnName("Is_Deleted");
             entity.Property(e => e.PasswordHash).HasDefaultValueSql("(0x)");
             entity.Property(e => e.PasswordSalt).HasDefaultValueSql("(0x)");
             entity.Property(e => e.UpdatedTimeStamp)
+                .HasDefaultValueSql("(getdate())")
                 .HasColumnType("datetime")
                 .HasColumnName("Updated_Time_Stamp");
             entity.Property(e => e.UserName).HasMaxLength(450);
