@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "D:\\Learnings\\Suresh-Works\\OAM.Core\\OAM.Core.csproj": {}
+    "D:\\Suresh\\Learnings\\OAM\\OAM.Core\\OAM.Core.csproj": {}
   },
   "projects": {
-    "D:\\Learnings\\Suresh-Works\\OAM.Core\\OAM.Core.csproj": {
+    "D:\\Suresh\\Learnings\\OAM\\OAM.Core\\OAM.Core.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "D:\\Learnings\\Suresh-Works\\OAM.Core\\OAM.Core.csproj",
+        "projectUniqueName": "D:\\Suresh\\Learnings\\OAM\\OAM.Core\\OAM.Core.csproj",
         "projectName": "OAM.Core",
-        "projectPath": "D:\\Learnings\\Suresh-Works\\OAM.Core\\OAM.Core.csproj",
+        "projectPath": "D:\\Suresh\\Learnings\\OAM\\OAM.Core\\OAM.Core.csproj",
         "packagesPath": "C:\\Users\\suresh.janakiraman\\.nuget\\packages\\",
-        "outputPath": "D:\\Learnings\\Suresh-Works\\OAM.Core\\obj\\",
+        "outputPath": "D:\\Suresh\\Learnings\\OAM\\OAM.Core\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
           "C:\\Users\\suresh.janakiraman\\AppData\\Roaming\\NuGet\\NuGet.Config",

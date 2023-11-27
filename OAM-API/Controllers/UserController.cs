@@ -1,5 +1,6 @@
 ﻿using Azure;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.RateLimiting;
 using Microsoft.EntityFrameworkCore.Metadata.Internal;
 using OAM.Core.BAL.IService;
 using OAM.Core.Entities;
@@ -12,6 +13,7 @@ namespace OAM_API.Controllers
 {
     [ApiController]
     [Route("api/[controller]")]
+    //[EnableRateLimiting("fixed")]
     public class UserController : ControllerBase
     {
         //Declaration
@@ -29,6 +31,7 @@ namespace OAM_API.Controllers
         [Route("Register")]
         public async Task<RegisterResponse> Register(RegisterRequest registerRequest)
         {
+
             RegisterResponse registerResponse = new RegisterResponse();
             if (!ModelState.IsValid)
             {

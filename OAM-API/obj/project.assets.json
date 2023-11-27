@@ -3592,11 +3592,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "D:\\Learnings\\Suresh-Works\\OAM-API\\OAM-API.csproj",
+      "projectUniqueName": "D:\\Suresh\\Learnings\\OAM\\OAM-API\\OAM-API.csproj",
       "projectName": "OAM-API",
-      "projectPath": "D:\\Learnings\\Suresh-Works\\OAM-API\\OAM-API.csproj",
+      "projectPath": "D:\\Suresh\\Learnings\\OAM\\OAM-API\\OAM-API.csproj",
       "packagesPath": "C:\\Users\\suresh.janakiraman\\.nuget\\packages\\",
-      "outputPath": "D:\\Learnings\\Suresh-Works\\OAM-API\\obj\\",
+      "outputPath": "D:\\Suresh\\Learnings\\OAM\\OAM-API\\obj\\",
       "projectStyle": "PackageReference",
       "configFilePaths": [
         "C:\\Users\\suresh.janakiraman\\AppData\\Roaming\\NuGet\\NuGet.Config",
@@ -3613,8 +3613,8 @@
         "net7.0": {
           "targetAlias": "net7.0",
           "projectReferences": {
-            "D:\\Learnings\\Suresh-Works\\OAM.Core\\OAM.Core.csproj": {
-              "projectPath": "D:\\Learnings\\Suresh-Works\\OAM.Core\\OAM.Core.csproj"
+            "D:\\Suresh\\Learnings\\OAM\\OAM.Core\\OAM.Core.csproj": {
+              "projectPath": "D:\\Suresh\\Learnings\\OAM\\OAM.Core\\OAM.Core.csproj"
             }
           }
         }

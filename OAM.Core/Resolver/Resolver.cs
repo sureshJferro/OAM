@@ -19,13 +19,12 @@ namespace OAM.Core.Resolver
         public static IServiceCollection AddCustomServices(this IServiceCollection services)
         {
             // Register your services here
-           
             services.AddTransient<IUserService, UserService>();
-            services.AddTransient<ICommonService, CommonService>();
+            services.AddSingleton<ICommonService, CommonService>();
 
             // Register your repositories here
             services.AddScoped<IUserRepository, UserRepository>();
-            services.AddScoped<ICommonRepository, CommonRepository>();
+            services.AddSingleton<ICommonRepository, CommonRepository>();
             services.AddSingleton<IHttpContextAccessor, HttpContextAccessor>();
             return services;
         }

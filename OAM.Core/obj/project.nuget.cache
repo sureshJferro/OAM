@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "tZcDvlE0kQtC3lXu/YChm8cUjEHWWXeXMWHpPXQqoem+4KH36On4w6SMwbSKP21+b4Pk24+hycWM/qXHvjkp/g==",
+  "dgSpecHash": "qkXrQHPjNirubHLH6dsfnt3nwjrYUm+QMZIub9xWTFWwnYjClGnIdbjZOvA5jQ0urbcD/PMTZippL46x3aRRtQ==",
   "success": true,
-  "projectFilePath": "D:\\Learnings\\Suresh-Works\\OAM.Core\\OAM.Core.csproj",
+  "projectFilePath": "D:\\Suresh\\Learnings\\OAM\\OAM.Core\\OAM.Core.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\suresh.janakiraman\\.nuget\\packages\\azure.core\\1.25.0\\azure.core.1.25.0.nupkg.sha512",
     "C:\\Users\\suresh.janakiraman\\.nuget\\packages\\azure.identity\\1.7.0\\azure.identity.1.7.0.nupkg.sha512",

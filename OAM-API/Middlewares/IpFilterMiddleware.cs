@@ -16,20 +16,19 @@ namespace OAM_API.Middlewares
         //Declaration
         private readonly RequestDelegate requestDelegate;
         private readonly IHttpContextAccessor _httpContextAccessor;
+        private readonly ICommonService _commonService;
 
         //Constructor
-        public IpFilterMiddleware(RequestDelegate request, IHttpContextAccessor contextAccessor)
+        public IpFilterMiddleware(RequestDelegate request, IHttpContextAccessor contextAccessor,ICommonService commonService)
         {
             requestDelegate = request;
             _httpContextAccessor = contextAccessor;
+            _commonService = commonService;
         }
 
         public Task Invoke(HttpContext context)
         {
-
-            var services = _httpContextAccessor.HttpContext.RequestServices;
-            var commonService = (ICommonService)services.GetService(typeof(ICommonService));
-            bool IsIpFilterEnabled = Utility.GetBool(commonService.GetAppSettings("IpFilterEnabled"));
+            bool IsIpFilterEnabled = Utility.GetBool(_commonService.GetAppSettings("IpFilterEnabled"));
             if (IsIpFilterEnabled)
             {
                 if (context != null)
@@ -69,9 +68,8 @@ namespace OAM_API.Middlewares
         }
         public bool IsValidIpAddress(string IpAddress)
         {
-            var services = _httpContextAccessor.HttpContext.RequestServices;
-            var commonService = (ICommonService)services.GetService(typeof(ICommonService));
-            return commonService.IsValidIpAddress(IpAddress);
+           
+            return _commonService.IsValidIpAddress(IpAddress);
         }
 
     }
