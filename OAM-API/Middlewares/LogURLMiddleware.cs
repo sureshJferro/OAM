@@ -29,7 +29,7 @@ namespace OAM_API.Middlewares
             _commonService = commonService;
             _httpContextAccessor = httpContextAccessor;
         }
-        public async Task InvokeAsync(HttpContext context)
+        public async Task Invoke(HttpContext context)
         {
             ApiLogEntryResponse apiLogEntry = CreateApiLogEntryWithRequestData(context);
             long requestResponseId = _commonService.SaveApiRequestResposelog(apiLogEntry);
@@ -50,58 +50,29 @@ namespace OAM_API.Middlewares
                         getWithRequestBody = true;
                     }
                 }
-                //Continue down the Middleware pipeline, eventually returning to this class
-                await _next.Invoke(context);
-
+                try
+                {
+                    //Continue down the Middleware pipeline, eventually returning to this class
+                    await _next.Invoke(context);
+                }
+                catch (Exception ex)
+                {
+                    apiLogEntry.ResponseContentBody = FormatResponse(context.Response);
+                    apiLogEntry.ResponseStatusCode = context.Response.StatusCode;
+                    apiLogEntry.APIRequestId = ServiceUtility.Utility.GetLong(ServiceUtility.Utility.GetHttpRequestHeader(context.Request.Headers,
+                        ServiceUtility.Constants.APIRequestId));
+                    if (apiLogEntry.APIRequestId > 0)
+                    {
+                        _commonService.SaveApiRequestResposelog(apiLogEntry);
+                        context.Request.Headers.Remove("RequestId");
+                    }
+                }
                 apiLogEntry.ResponseContentBody = FormatResponse(context.Response);
-
-                #region Assigning HTTP Status code same as in response for Forms.
-                //if (!string.IsNullOrWhiteSpace(apiLogEntry.ResponseContentBody) && apiLogEntry.ResponseContentBody.Contains("StatusCode"))
-                //{
-                //    context.Response.StatusCode = (int)JObject.Parse(apiLogEntry.ResponseContentBody)["StatusCode"];
-
-                //}
-                #endregion
-
                 apiLogEntry.ResponseStatusCode = context.Response.StatusCode;
                 apiLogEntry.ResponseContentType = context.Request.ContentType;
                 apiLogEntry.ResponseTimestamp = DateTime.Now;
                 apiLogEntry.ResponseHeaders = SerializeHeaders(context.Request.Headers);
-
                 apiLogEntry.RequestIpAddress = !string.IsNullOrWhiteSpace((string)JObject.Parse(apiLogEntry.RequestHeaders)["X-Forwarded-For"]) ? JObject.Parse(apiLogEntry.RequestHeaders)["X-Forwarded-For"].ToString().Split(",").FirstOrDefault() : _httpContextAccessor.HttpContext.Connection.RemoteIpAddress.ToString();
-                //apiLogEntry.RequestIpAddress = _httpContextAccessor.HttpContext.Connection.RemoteIpAddress.ToString();
-
-                //if (context.Response.StatusCode != (int)HttpStatusCode.OK)
-                //{
-                //    if (!string.IsNullOrWhiteSpace(apiLogEntry.ResponseContentBody))
-                //    {
-                //        apiLogEntry.ResponseErrorMsg = apiLogEntry.ResponseContentBody;
-                //        apiLogEntry.ResponseContentBody = null;
-                //    }
-                //    if (context.Response.StatusCode == (int)HttpStatusCode.Unauthorized)
-                //    {
-                //        apiLogEntry.ResponseErrorMsg = HttpStatusCode.Unauthorized.ToString();
-                //        apiLogEntry.ResponseContentBody = null;
-                //    }
-                //    if (context.Response.StatusCode == (int)HttpStatusCode.InternalServerError && string.IsNullOrWhiteSpace(apiLogEntry.ResponseContentBody))
-                //    {
-                //        apiLogEntry.ResponseErrorMsg = HttpStatusCode.InternalServerError.ToString();
-                //        apiLogEntry.ResponseContentBody = null;
-                //    }
-                //    if (getWithRequestBody)
-                //    {
-                //        context.Response.Clear();
-                //        apiLogEntry.ResponseErrorMsg = HttpStatusCode.BadRequest.ToString();
-                //        apiLogEntry.ResponseStatusCode = (int)HttpStatusCode.BadRequest;
-                //        apiLogEntry.ResponseContentBody = "HTTP GET/HTTP DELETE API Endpoints don't support request body.";
-                //        context.Response.StatusCode = (int)HttpStatusCode.BadRequest;
-                //    }
-                //    apiLogEntry.ApiStatusId = (int)HttpStatusCode.BadRequest;
-                //}
-                //else if (context.Response.StatusCode == (int)HttpStatusCode.OK)
-                //{
-                //    apiLogEntry.ApiStatusId = (int)HttpStatusCode.OK;
-                //}
                 apiLogEntry.APIRequestId = ServiceUtility.Utility.GetLong(ServiceUtility.Utility.GetHttpRequestHeader(context.Request.Headers,
                         ServiceUtility.Constants.APIRequestId));
                 if (apiLogEntry.APIRequestId > 0)

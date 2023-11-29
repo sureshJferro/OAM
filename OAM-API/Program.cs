@@ -88,8 +88,10 @@ app.UseHttpsRedirection();
 app.UseAuthorization();
 
 //Configurimg Middleware in pipeline with Extension Method
-app.UseIpFilter();
 app.UseLogUrl();
+app.UseExceptionMiddleware();
+app.UseIpFilter();
+
 
 app.MapControllers();
 
