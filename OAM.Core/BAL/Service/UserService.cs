@@ -1,16 +1,9 @@
-﻿using Azure;
-using OAM.Core.BAL.IService;
+﻿using OAM.Core.BAL.IService;
 using OAM.Core.DAL.IRepository;
 using OAM.Core.Entities;
-using OAM.Core.Models.Base_Models;
 using OAM.Core.Models.Base_Models.API_Requests;
 using OAM.Core.Models.Base_Models.API_Responses;
-using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Security.Cryptography;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace OAM.Core.BAL.Service
 {

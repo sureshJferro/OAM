@@ -19,7 +19,7 @@ namespace OAM_API.Middlewares
         private readonly ICommonService _commonService;
 
         //Constructor
-        public IpFilterMiddleware(RequestDelegate request, IHttpContextAccessor contextAccessor,ICommonService commonService)
+        public IpFilterMiddleware(RequestDelegate request, IHttpContextAccessor contextAccessor, ICommonService commonService)
         {
             requestDelegate = request;
             _httpContextAccessor = contextAccessor;
@@ -66,11 +66,21 @@ namespace OAM_API.Middlewares
             }
             return requestDelegate.Invoke(context);
         }
+
+        #region To Check Whether IP Address is Valid or Not
         public bool IsValidIpAddress(string IpAddress)
         {
-           
+
             return _commonService.IsValidIpAddress(IpAddress);
         }
+        #endregion
 
+    }
+    public static class IpFilterMiddlewareExtensions
+    {
+        public static IApplicationBuilder UseIpFilter(this IApplicationBuilder app)
+        {
+            return app.UseMiddleware<IpFilterMiddleware>();
+        }
     }
 }

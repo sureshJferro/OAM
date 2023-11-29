@@ -1,5 +1,8 @@
-﻿using System;
+﻿using Microsoft.AspNetCore.Http;
+using Microsoft.Extensions.Primitives;
+using System;
 using System.Collections.Generic;
+using System.Collections.Specialized;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Reflection;
@@ -47,6 +50,31 @@ namespace OAM.Core.Helpers
             }
             return result;
         }
+        #endregion
+
+        #region Convert to long
+        public static long GetLong(object value)
+        {
+            long result = new long();
+            if (value != null)
+            {
+                long.TryParse(value.ToString(), out result);
+            }
+            return result;
+        }
+        #endregion
+
+        #region Get HttpRequest Header
+        public static string GetHttpRequestHeader(IHeaderDictionary headers, string headerName)
+        {
+            StringValues headerValue = string.Empty;
+            if (!headers.ContainsKey(headerName))
+                return string.Empty;
+
+            headers.TryGetValue(headerName, out headerValue);
+            return headerValue;
+        }
+        
         #endregion
     }
 }

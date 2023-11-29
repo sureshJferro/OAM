@@ -173,7 +173,6 @@ D:\Suresh\Learnings\OAM\OAM-API\obj\Debug\net7.0\OAM-API.GeneratedMSBuildEditorC
 D:\Suresh\Learnings\OAM\OAM-API\obj\Debug\net7.0\OAM-API.AssemblyInfoInputs.cache
 D:\Suresh\Learnings\OAM\OAM-API\obj\Debug\net7.0\OAM-API.AssemblyInfo.cs
 D:\Suresh\Learnings\OAM\OAM-API\obj\Debug\net7.0\OAM-API.csproj.CoreCompileInputs.cache
-D:\Suresh\Learnings\OAM\OAM-API\obj\Debug\net7.0\OAM-API.MvcApplicationPartsAssemblyInfo.cs
 D:\Suresh\Learnings\OAM\OAM-API\obj\Debug\net7.0\OAM-API.MvcApplicationPartsAssemblyInfo.cache
 D:\Suresh\Learnings\OAM\OAM-API\obj\Debug\net7.0\staticwebassets\msbuild.OAM-API.Microsoft.AspNetCore.StaticWebAssets.props
 D:\Suresh\Learnings\OAM\OAM-API\obj\Debug\net7.0\staticwebassets\msbuild.build.OAM-API.props

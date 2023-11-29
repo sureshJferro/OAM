@@ -31,6 +31,7 @@ namespace OAM.Core.DAL.Repository
             response.StatusCode = (int)HttpStatusCode.OK;
             if (user != null)
             {
+                
                 User? dbuser = _devContext.Users.Where(x => x.Id == user.Id).SingleOrDefault();
                 if (dbuser != null)
                 {

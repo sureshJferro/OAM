@@ -15,6 +15,8 @@ public partial class OamDevContext : DbContext
     {
     }
 
+    public virtual DbSet<ApiRequestResponseLog> ApiRequestResponseLogs { get; set; }
+
     public virtual DbSet<Role> Roles { get; set; }
 
     public virtual DbSet<User> Users { get; set; }
@@ -25,6 +27,32 @@ public partial class OamDevContext : DbContext
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
+        modelBuilder.Entity<ApiRequestResponseLog>(entity =>
+        {
+            entity.HasKey(e => e.LogId).HasName("PK__api_requ__9E2397E07D548E63");
+
+            entity.ToTable("api_request_response_log");
+
+            entity.Property(e => e.LogId).HasColumnName("log_id");
+            entity.Property(e => e.CreateTimeStamp)
+                .HasDefaultValueSql("(getdate())")
+                .HasColumnName("create_time_stamp");
+            entity.Property(e => e.RequestBody).HasColumnName("request_body");
+            entity.Property(e => e.RequestMethod)
+                .HasMaxLength(10)
+                .IsUnicode(false)
+                .HasColumnName("request_method");
+            entity.Property(e => e.RequestPath)
+                .HasMaxLength(255)
+                .HasColumnName("request_path");
+            entity.Property(e => e.ResponseBody).HasColumnName("response_body");
+            entity.Property(e => e.ResponseStatusCode).HasColumnName("response_status_code");
+            entity.Property(e => e.UpdateTimeStamp)
+                .HasDefaultValueSql("(getdate())")
+                .HasColumnName("update_time_stamp");
+            entity.Property(e => e.UserId).HasColumnName("user_id");
+        });
+
         modelBuilder.Entity<Role>(entity =>
         {
             entity.ToTable("Role");

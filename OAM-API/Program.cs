@@ -87,7 +87,9 @@ app.UseHttpsRedirection();
 
 app.UseAuthorization();
 
-app.UseMiddleware<IpFilterMiddleware>();
+//Configurimg Middleware in pipeline with Extension Method
+app.UseIpFilter();
+app.UseLogUrl();
 
 app.MapControllers();
 
