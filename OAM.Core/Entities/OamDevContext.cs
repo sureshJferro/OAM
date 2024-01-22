@@ -1,14 +1,21 @@
 ﻿using System;
 using System.Collections.Generic;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Configuration;
 
 namespace OAM.Core.Entities;
 
 public partial class OamDevContext : DbContext
 {
-    public OamDevContext()
+    //Declaration
+    private readonly IConfiguration _config;
+
+    //Constructor
+    public OamDevContext(IConfiguration configuration)
     {
+        _config = configuration;
     }
+
 
     public OamDevContext(DbContextOptions<OamDevContext> options)
         : base(options)
@@ -23,7 +30,7 @@ public partial class OamDevContext : DbContext
 
     protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
 #warning To protect potentially sensitive information in your connection string, you should move it out of source code. You can avoid scaffolding the connection string by using the Name= syntax to read it from configuration - see https://go.microsoft.com/fwlink/?linkid=2131148. For more guidance on storing connection strings, see http://go.microsoft.com/fwlink/?LinkId=723263.
-        => optionsBuilder.UseSqlServer("Server=SURESH-P;Database=OAM_Dev;User ID=sa;Password=Ferro@1234;Language=British English; TrustServerCertificate=True");
+        => optionsBuilder.UseSqlServer(_config.GetConnectionString(Helpers.Constants.OAMConnection));
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {

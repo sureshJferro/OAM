@@ -5,15 +5,17 @@ using OAM.Core.Resolver;
 using OAM_API.Middlewares;
 using System.Threading.RateLimiting;
 
+IConfiguration configuration = new ConfigurationBuilder()
+                            .AddJsonFile("appsettings.json")
+                            .Build();
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
-
 builder.Services.AddControllers();
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
-builder.Services.AddTransient<OamDevContext>();
+//builder.Services.AddTransient<OamDevContext>();
 builder.Services.AddCustomServices();
 
 #region Rate Limiting Middleware 
@@ -96,8 +98,8 @@ app.UseIpFilter();
 app.MapControllers();
 
 #region Minimal API Samples
-app.MapGet("/GetUsersList", (OamDevContext db) => db.Users.ToList());
-app.MapGet("/GetUser/{id}", (OamDevContext db, int id) => db.Users.Where(x => x.Id == id).SingleOrDefault());
+//app.MapGet("/GetUsersList", (OamDevContext db) => db.Users.ToList());
+//app.MapGet("/GetUser/{id}", (OamDevContext db, int id) => db.Users.Where(x => x.Id == id).SingleOrDefault());
 #endregion
 
 app.Run();

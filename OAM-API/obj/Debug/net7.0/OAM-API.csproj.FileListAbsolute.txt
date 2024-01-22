@@ -188,3 +188,5 @@ D:\Suresh\Learnings\OAM\OAM-API\obj\Debug\net7.0\refint\OAM-API.dll
 D:\Suresh\Learnings\OAM\OAM-API\obj\Debug\net7.0\OAM-API.pdb
 D:\Suresh\Learnings\OAM\OAM-API\obj\Debug\net7.0\OAM-API.genruntimeconfig.cache
 D:\Suresh\Learnings\OAM\OAM-API\obj\Debug\net7.0\ref\OAM-API.dll
+D:\Suresh\Learnings\OAM\OAM-API\obj\Debug\net7.0\OAM-API.MvcApplicationPartsAssemblyInfo.cs
+D:\Suresh\Learnings\OAM\OAM-API\obj\Debug\net7.0\OAM-API.sourcelink.json

@@ -14,7 +14,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("OAM-API")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+cff7756b96f91ce0da2d05650967f0661715016f")]
 [assembly: System.Reflection.AssemblyProductAttribute("OAM-API")]
 [assembly: System.Reflection.AssemblyTitleAttribute("OAM-API")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]

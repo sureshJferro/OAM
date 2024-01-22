@@ -9,6 +9,7 @@ namespace OAM.Core.Helpers
     public class Constants
     {
         public const string APIRequestId = "RequestId";
+        public const string OAMConnection = "OAMConnection";
 
     }
 }

@@ -1,4 +1,5 @@
-﻿using OAM.Core.DAL.IRepository;
+﻿using Microsoft.Extensions.Configuration;
+using OAM.Core.DAL.IRepository;
 using OAM.Core.Entities;
 using OAM.Core.Helpers;
 using OAM.Core.Models.Base_Models;
@@ -17,12 +18,11 @@ namespace OAM.Core.DAL.Repository
     public class UserRepository : IUserRepository
     {
         //Declaration
-        private readonly OamDevContext _devContext;
-
+        private readonly IConfiguration _config;
         //Constructor
-        public UserRepository(OamDevContext devContext)
+        public UserRepository(IConfiguration configuration)
         {
-            _devContext = devContext;
+            _config = configuration;
         }
         public async Task<RegisterResponse> Register(User user)
         {
@@ -31,35 +31,37 @@ namespace OAM.Core.DAL.Repository
             response.StatusCode = (int)HttpStatusCode.OK;
             if (user != null)
             {
-                
-                User? dbuser = _devContext.Users.Where(x => x.Id == user.Id).SingleOrDefault();
-                if (dbuser != null)
+                using (var entities = new OamDevContext(_config))
                 {
-                    //Update Logic If ID Exists
-                    dbuser.UserName = user.UserName;
-                    dbuser.PasswordSalt = user.PasswordSalt;
-                    dbuser.PasswordHash = user.PasswordHash;
-                    dbuser.UpdatedTimeStamp = DateTime.Now;
-                    response.Message = Utility.GetEnumDisplayName(StatusMessage.Updated);
-                }
-                else
-                {
-                    //Check Is User Already Exists
-                    bool isDuplicate = _devContext.Users.Where(x => x.Email.ToLower() == user.Email.ToLower() && x.UserName.ToLower() == user.UserName.ToLower()).Any();
-                    if (isDuplicate)
+                    User? dbuser = entities.Users.Where(x => x.Id == user.Id).SingleOrDefault();
+                    if (dbuser != null)
                     {
-                        response.Status = HttpStatusCode.BadRequest.ToString();
-                        response.StatusCode = (int)HttpStatusCode.BadRequest;
-                        response.Message = Utility.GetEnumDisplayName(StatusMessage.DuplicateUser);
+                        //Update Logic If ID Exists
+                        dbuser.UserName = user.UserName;
+                        dbuser.PasswordSalt = user.PasswordSalt;
+                        dbuser.PasswordHash = user.PasswordHash;
+                        dbuser.UpdatedTimeStamp = DateTime.Now;
+                        response.Message = Utility.GetEnumDisplayName(StatusMessage.Updated);
                     }
                     else
                     {
-                        //Save Logic If ID doesn't Exists
-                        _devContext.Users.Add(user);
-                        response.Message = Utility.GetEnumDisplayName(StatusMessage.Saved);
+                        //Check Is User Already Exists
+                        bool isDuplicate = entities.Users.Where(x => x.Email.ToLower() == user.Email.ToLower() && x.UserName.ToLower() == user.UserName.ToLower()).Any();
+                        if (isDuplicate)
+                        {
+                            response.Status = HttpStatusCode.BadRequest.ToString();
+                            response.StatusCode = (int)HttpStatusCode.BadRequest;
+                            response.Message = Utility.GetEnumDisplayName(StatusMessage.DuplicateUser);
+                        }
+                        else
+                        {
+                            //Save Logic If ID doesn't Exists
+                            entities.Users.Add(user);
+                            response.Message = Utility.GetEnumDisplayName(StatusMessage.Saved);
+                        }
                     }
+                    entities.SaveChanges();
                 }
-                _devContext.SaveChanges();
                 response.userDetails = new UserDetails()
                 {
                     Name = user.UserName,

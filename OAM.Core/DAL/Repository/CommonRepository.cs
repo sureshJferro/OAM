@@ -46,12 +46,13 @@ namespace OAM.Core.DAL.Repository
         #region To Save Request and Response Log
         public long SaveApiRequestResposelog(ApiLogEntryResponse requestResponseLog)
         {
+            var dat = _config.GetConnectionString(Helpers.Constants.OAMConnection);
             bool IsExists = false;
             long RequestResposelogId = 0;
             ApiRequestResponseLog? dbrequestResponseLog = null;
             if (requestResponseLog != null)
             {
-                using (var entities = new OamDevContext())
+                using (var entities = new OamDevContext(_config))
                 {
                     dbrequestResponseLog = entities.ApiRequestResponseLogs.Where(x=>x.LogId==requestResponseLog.APIRequestId).SingleOrDefault();
                     if (dbrequestResponseLog!=null)
