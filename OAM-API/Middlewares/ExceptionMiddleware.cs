@@ -9,13 +9,15 @@ namespace OAM_API.Middlewares
         private readonly RequestDelegate requestDelegate;
         private readonly IHttpContextAccessor _httpContextAccessor;
         private readonly ICommonService _commonService;
+        ILogger<ExceptionMiddleware> _logger;
 
         //Constructor
-        public ExceptionMiddleware(RequestDelegate request, IHttpContextAccessor contextAccessor, ICommonService commonService)
+        public ExceptionMiddleware(RequestDelegate request, IHttpContextAccessor contextAccessor, ICommonService commonService, ILogger<ExceptionMiddleware> logger)
         {
             requestDelegate = request;
             _httpContextAccessor = contextAccessor;
             _commonService = commonService;
+            _logger = logger;
         }
         public async Task InvokeAsync(HttpContext context)
         {
@@ -25,6 +27,7 @@ namespace OAM_API.Middlewares
             }
             catch (Exception ex)
             {
+                _logger.LogError(500, ex, "Exception in OAMAPI");
                 HandleException(ex);
             }
         }
