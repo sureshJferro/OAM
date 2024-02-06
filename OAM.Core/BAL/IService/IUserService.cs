@@ -12,5 +12,6 @@ namespace OAM.Core.BAL.IService
    public interface IUserService
     {
         Task<RegisterResponse> Register(RegisterRequest registerRequest);
+        Task<List<UserDetails>> GetUser(int? userid);
     }
 }

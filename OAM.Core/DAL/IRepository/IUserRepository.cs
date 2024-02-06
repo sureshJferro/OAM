@@ -13,5 +13,6 @@ namespace OAM.Core.DAL.IRepository
     public interface IUserRepository
     {
         Task<RegisterResponse> Register(User user);
+        Task<List<UserDetails>> GetUser(int? userId);
     }
 }

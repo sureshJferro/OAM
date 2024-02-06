@@ -18,6 +18,7 @@ namespace OAM.Core.BAL.Service
            _userRepository = userRepository;
         }
 
+        #region  Register New User
         public async Task<RegisterResponse> Register(RegisterRequest request)
         {
             CreatePasswordHash(request.Password, out byte[] passwordHash, out byte[] passwordSalt);
@@ -27,12 +28,15 @@ namespace OAM.Core.BAL.Service
                 UserId = Guid.NewGuid(),
                 Email = request.Email,
                 UserName = request.Name,
-                PasswordHash =passwordHash,
-                PasswordSalt =passwordSalt,
+                PasswordHash = passwordHash,
+                PasswordSalt = passwordSalt,
                 RoleId = 1 //Default As Admin
             };
             return await _userRepository.Register(user);
         }
+        #endregion
+
+        #region Create Hash Password
         private void CreatePasswordHash(string password, out byte[] passwordHash, out byte[] passwordSalt)
         {
             using (var hmac = new HMACSHA512())
@@ -41,6 +45,14 @@ namespace OAM.Core.BAL.Service
                 passwordHash = hmac.ComputeHash(System.Text.Encoding.UTF8.GetBytes(password));
             }
         }
+
+        #endregion
+        #region Get User Details
+        public async Task<List<UserDetails>> GetUser(int? userId)
+        {
+            return await _userRepository.GetUser(userId);
+        } 
+        #endregion
 
     }
 }

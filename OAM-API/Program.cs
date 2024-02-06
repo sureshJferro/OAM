@@ -84,6 +84,10 @@ if (app.Environment.IsDevelopment())
 }
 
 //app.UseRateLimiter();
+app.UseCors(x => x
+            .AllowAnyOrigin()
+            .AllowAnyMethod()
+            .AllowAnyHeader());
 
 app.UseHttpsRedirection();
 

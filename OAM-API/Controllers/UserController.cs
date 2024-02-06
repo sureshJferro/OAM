@@ -64,5 +64,32 @@ namespace OAM_API.Controllers
             }
             return updateUserResponse;
         }
+
+        [HttpGet]
+        [Route("GetUser")]
+        public async Task<List<UserDetails>> GetUser(int? userId)
+        {
+            List<UserDetails> userDetails = new List<UserDetails>();
+            //if (uuserId>0)
+            //{
+                userDetails = await _userService.GetUser(userId);
+            //}
+            HttpContext.Response.StatusCode = 200;
+            return userDetails;
+        }
+
+        [HttpGet]
+        [Route("Login")]
+        public async Task<UserDetails> Login(string userName,string password)
+        {
+            UserDetails userDetails = new UserDetails();
+            if (!string.IsNullOrWhiteSpace(userName) && !string.IsNullOrWhiteSpace(password))
+            {
+
+            }
+          // UserDetails userDetails =  await _userService.Login(userName, password);
+
+            return userDetails;
+        }
     }
 }

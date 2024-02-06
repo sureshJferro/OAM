@@ -1,4 +1,5 @@
-﻿using Microsoft.Extensions.Configuration;
+﻿using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Configuration;
 using OAM.Core.DAL.IRepository;
 using OAM.Core.Entities;
 using OAM.Core.Helpers;
@@ -24,6 +25,7 @@ namespace OAM.Core.DAL.Repository
         {
             _config = configuration;
         }
+        #region Register New User
         public async Task<RegisterResponse> Register(User user)
         {
             RegisterResponse response = new RegisterResponse();
@@ -72,5 +74,25 @@ namespace OAM.Core.DAL.Repository
             }
             return response;
         }
+        #endregion
+
+        #region Get User Details
+        public async Task<List<UserDetails>> GetUser(int? userId)
+        {
+            List<UserDetails> userDetails = new List<UserDetails>();
+            using (var entities = new OamDevContext(_config))
+            {
+                userDetails = (from u in entities.Users
+                              select new UserDetails
+                              {
+                                  Name = u.UserName,
+                                  EmailAddress = u.Email,
+                                  CreatedTime = DateTime.Now,
+                                  UserId = Utility.GetGuid(u.UserId)
+                              }).AsNoTracking().ToList();
+            }
+            return userDetails;
+        }
+        #endregion
     }
 }
