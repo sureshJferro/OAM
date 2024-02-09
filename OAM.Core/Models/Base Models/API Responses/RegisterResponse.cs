@@ -23,7 +23,7 @@ namespace OAM.Core.Models.Base_Models.API_Responses
         public Guid UserId { get; set; }
         
         [DataMember(Order = 2)]
-        public string Name { get; set; }
+        public string UserName { get; set; }
 
         [DataMember(Order = 3)]
         public string EmailAddress { get; set; }

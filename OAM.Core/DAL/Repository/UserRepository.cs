@@ -66,7 +66,7 @@ namespace OAM.Core.DAL.Repository
                 }
                 response.userDetails = new UserDetails()
                 {
-                    Name = user.UserName,
+                    UserName = user.UserName,
                     UserId = Utility.GetGuid(user.UserId),
                     EmailAddress = user.Email,
                     CreatedTime = DateTime.Now
@@ -85,7 +85,7 @@ namespace OAM.Core.DAL.Repository
                 userDetails = (from u in entities.Users
                               select new UserDetails
                               {
-                                  Name = u.UserName,
+                                  UserName = u.UserName,
                                   EmailAddress = u.Email,
                                   CreatedTime = DateTime.Now,
                                   UserId = Utility.GetGuid(u.UserId)
