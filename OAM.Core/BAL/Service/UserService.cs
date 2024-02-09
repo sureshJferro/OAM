@@ -28,6 +28,7 @@ namespace OAM.Core.BAL.Service
                 UserId = Guid.NewGuid(),
                 Email = request.Email,
                 UserName = request.Name,
+                PhoneNumber = request.PhoneNumber,
                 PasswordHash = passwordHash,
                 PasswordSalt = passwordSalt,
                 RoleId = 1 //Default As Admin

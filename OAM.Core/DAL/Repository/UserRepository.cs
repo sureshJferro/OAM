@@ -40,6 +40,7 @@ namespace OAM.Core.DAL.Repository
                     {
                         //Update Logic If ID Exists
                         dbuser.UserName = user.UserName;
+                        dbuser.PhoneNumber = user.PhoneNumber;
                         dbuser.PasswordSalt = user.PasswordSalt;
                         dbuser.PasswordHash = user.PasswordHash;
                         dbuser.UpdatedTimeStamp = DateTime.Now;
