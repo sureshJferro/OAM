@@ -87,7 +87,7 @@ namespace OAM_API.Controllers
             if (login!=null && !string.IsNullOrWhiteSpace(login.Username) && !string.IsNullOrWhiteSpace(login.Password))
             {
                  userDetails = await _userService.Login(login);
-                if (userDetails!=null)
+                if (userDetails!=null && userDetails.UserId!=Guid.Empty)
                 {
                    
                     userDetails.Status=HttpStatusCode.OK.ToString();

@@ -104,6 +104,7 @@ namespace OAM.Core.DAL.Repository
         {
             using (var entities = new OamDevContext(_config))
             {
+                bool isValid = false;
                 UserDetails userDetails = (from u in entities.Users
                                            where u.Email == login.Username && u.IsDeleted != true
                                            select new UserDetails
@@ -115,16 +116,15 @@ namespace OAM.Core.DAL.Repository
                                                EmailAddress = login.Email
                                            }).AsNoTracking().SingleOrDefault();
 
-                bool isValid = VerifyPassword(login.Password, userDetails.PasswordHash, userDetails.PasswordSalt);
-                if (isValid)
+                if (userDetails is not null)
                 {
-                    return userDetails;
+                    isValid = VerifyPassword(login.Password, userDetails.PasswordHash, userDetails.PasswordSalt);
                 }
                 else
                 {
-                    return new UserDetails();
+                    userDetails = new UserDetails();
                 }
-
+                return userDetails;
             }
         }
         private bool VerifyPassword(string enteredPassword, byte[] storedPasswordHash, byte[] storedPasswordSalt)
