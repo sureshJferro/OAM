@@ -19,7 +19,7 @@ namespace OAM.Core.Models.Base_Models.API_Requests
         [DataMember(Order=1)]
         [RegularExpression("^[a-zA-Z0-9]*$", ErrorMessage = "Name must contain only letters and numbers.")]
         [StringLength(50, MinimumLength = 3, ErrorMessage = "Name must be between 3 and 50 characters.")]
-        public string Name { get; set; }
+        public string UserName { get; set; }
 
         [Required]
         [DataMember(Order = 2)]

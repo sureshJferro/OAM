@@ -14,5 +14,6 @@ namespace OAM.Core.DAL.IRepository
     {
         Task<RegisterResponse> Register(User user);
         Task<List<UserDetails>> GetUser(int? userId);
+        Task<UserDetails> Login(LoginRequest login);
     }
 }

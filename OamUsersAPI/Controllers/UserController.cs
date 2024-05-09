@@ -8,7 +8,8 @@ using OAM.Core.Models.Base_Models;
 using OAM.Core.Models.Base_Models.API_Requests;
 using OAM.Core.Models.Base_Models.API_Responses;
 using System.Net;
-
+using System.Reflection.Metadata;
+using helpers = OAM.Core.Helpers;
 namespace OAM_API.Controllers
 {
     [ApiController]
@@ -74,21 +75,39 @@ namespace OAM_API.Controllers
             //{
                 userDetails = await _userService.GetUser(userId);
             //}
-            HttpContext.Response.StatusCode = 200;
+            HttpContext.Response.StatusCode = (int)HttpStatusCode.OK;
             return userDetails;
         }
 
-        [HttpGet]
+        [HttpPost]
         [Route("Login")]
-        public async Task<UserDetails> Login(string userName,string password)
+        public async Task<UserDetails> Login(LoginRequest login)
         {
             UserDetails userDetails = new UserDetails();
-            if (!string.IsNullOrWhiteSpace(userName) && !string.IsNullOrWhiteSpace(password))
+            if (login!=null && !string.IsNullOrWhiteSpace(login.Username) && !string.IsNullOrWhiteSpace(login.Password))
             {
-
+                 userDetails = await _userService.Login(login);
+                if (userDetails!=null)
+                {
+                   
+                    userDetails.Status=HttpStatusCode.OK.ToString();
+                    userDetails.StatusCode= (int)HttpStatusCode.OK;
+                    userDetails.Message = helpers.Constants.Success;
+                }
+                else
+                {
+                    userDetails.Status = HttpStatusCode.BadRequest.ToString();
+                    userDetails.StatusCode = (int)HttpStatusCode.BadRequest;
+                    userDetails.Message = helpers.Constants.NotFound.ToString();
+                }
             }
-          // UserDetails userDetails =  await _userService.Login(userName, password);
-
+            else
+            {
+                userDetails.Status = HttpStatusCode.BadRequest.ToString();
+                userDetails.StatusCode = (int)HttpStatusCode.BadRequest;
+                userDetails.Message = helpers.Constants.CredentialsRequired.ToString();
+            }
+            HttpContext.Response.StatusCode = userDetails.StatusCode;
             return userDetails;
         }
     }

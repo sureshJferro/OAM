@@ -14,7 +14,7 @@ namespace OAM.Core.Models.Base_Models.API_Responses
         public UserDetails userDetails { get; set; }
     }
     [DataContract]
-    public record UserDetails
+    public record UserDetails:ApiBaseResponse
     {
         [JsonIgnore]
         public int Id { get; set; }
@@ -30,5 +30,12 @@ namespace OAM.Core.Models.Base_Models.API_Responses
 
         [DataMember(Order = 4)]
         public DateTime CreatedTime { get; set; }
+
+        [JsonIgnore]
+        public byte[] PasswordHash { get; set; }
+        [JsonIgnore]
+        public byte[] PasswordSalt { get; set; }
+
+
     }
 }

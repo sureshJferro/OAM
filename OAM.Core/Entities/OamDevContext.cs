@@ -18,7 +18,6 @@ public partial class OamDevContext : DbContext
         _config = configuration;
     }
 
-
     public OamDevContext(DbContextOptions<OamDevContext> options)
         : base(options)
     {
@@ -87,7 +86,8 @@ public partial class OamDevContext : DbContext
                 .IsRequired()
                 .HasDefaultValueSql("(0x)");
             entity.Property(e => e.PhoneNumber)
-                .HasColumnType("numeric(18, 0)")
+                .HasMaxLength(50)
+                .IsUnicode(false)
                 .HasColumnName("phone_number");
             entity.Property(e => e.UpdatedTimeStamp)
                 .HasDefaultValueSql("(getdate())")

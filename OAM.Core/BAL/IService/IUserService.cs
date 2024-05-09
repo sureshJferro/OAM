@@ -13,5 +13,6 @@ namespace OAM.Core.BAL.IService
     {
         Task<RegisterResponse> Register(RegisterRequest registerRequest);
         Task<List<UserDetails>> GetUser(int? userid);
+        Task<UserDetails> Login(LoginRequest login);
     }
 }

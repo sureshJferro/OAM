@@ -1,15 +1,18 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using Microsoft.AspNetCore.Identity;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using OAM.Core.DAL.IRepository;
 using OAM.Core.Entities;
 using OAM.Core.Helpers;
 using OAM.Core.Models.Base_Models;
+using OAM.Core.Models.Base_Models.API_Requests;
 using OAM.Core.Models.Base_Models.API_Responses;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Net;
 using System.Reflection.Metadata.Ecma335;
+using System.Security.Cryptography;
 using System.Text;
 using System.Threading.Tasks;
 using static OAM.Core.Enums.Enums;
@@ -84,15 +87,60 @@ namespace OAM.Core.DAL.Repository
             using (var entities = new OamDevContext(_config))
             {
                 userDetails = (from u in entities.Users
-                              select new UserDetails
-                              {
-                                  UserName = u.UserName,
-                                  EmailAddress = u.Email,
-                                  CreatedTime = DateTime.Now,
-                                  UserId = Utility.GetGuid(u.UserId)
-                              }).AsNoTracking().ToList();
+                               select new UserDetails
+                               {
+                                   UserName = u.UserName,
+                                   EmailAddress = u.Email,
+                                   CreatedTime = DateTime.Now,
+                                   UserId = Utility.GetGuid(u.UserId)
+                               }).AsNoTracking().ToList();
             }
             return userDetails;
+        }
+        #endregion
+
+        #region Login
+        public async Task<UserDetails> Login(OAM.Core.Models.Base_Models.API_Requests.LoginRequest login)
+        {
+            using (var entities = new OamDevContext(_config))
+            {
+                UserDetails userDetails = (from u in entities.Users
+                                           where u.Email == login.Username && u.IsDeleted != true
+                                           select new UserDetails
+                                           {
+                                               UserId = Utility.GetGuid(u.UserId),
+                                               PasswordHash = u.PasswordHash,
+                                               PasswordSalt = u.PasswordSalt,
+                                               UserName = u.UserName,
+                                               EmailAddress = login.Email
+                                           }).AsNoTracking().SingleOrDefault();
+
+                bool isValid = VerifyPassword(login.Password, userDetails.PasswordHash, userDetails.PasswordSalt);
+                if (isValid)
+                {
+                    return userDetails;
+                }
+                else
+                {
+                    return new UserDetails();
+                }
+
+            }
+        }
+        private bool VerifyPassword(string enteredPassword, byte[] storedPasswordHash, byte[] storedPasswordSalt)
+        {
+            using (var hmac = new HMACSHA512(storedPasswordSalt))
+            {
+                byte[] enteredPasswordHash = hmac.ComputeHash(System.Text.Encoding.UTF8.GetBytes(enteredPassword));
+
+                // Compare the computed hash with the stored hash
+                for (int i = 0; i < storedPasswordHash.Length; i++)
+                {
+                    if (storedPasswordHash[i] != enteredPasswordHash[i])
+                        return false;
+                }
+                return true;
+            }
         }
         #endregion
     }

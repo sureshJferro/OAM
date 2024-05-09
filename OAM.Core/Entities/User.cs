@@ -27,5 +27,5 @@ public partial class User
 
     public bool? IsDeleted { get; set; }
 
-    public decimal? PhoneNumber { get; set; }
+    public string PhoneNumber { get; set; }
 }

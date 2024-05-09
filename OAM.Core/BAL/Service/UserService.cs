@@ -27,7 +27,7 @@ namespace OAM.Core.BAL.Service
                 Id = request.Id,
                 UserId = Guid.NewGuid(),
                 Email = request.Email,
-                UserName = request.Name,
+                UserName = request.UserName,
                 PhoneNumber = request.PhoneNumber,
                 PasswordHash = passwordHash,
                 PasswordSalt = passwordSalt,
@@ -48,11 +48,19 @@ namespace OAM.Core.BAL.Service
         }
 
         #endregion
+
         #region Get User Details
         public async Task<List<UserDetails>> GetUser(int? userId)
         {
             return await _userRepository.GetUser(userId);
-        } 
+        }
+        #endregion
+
+        #region Login
+        public async Task<UserDetails> Login(LoginRequest login)
+        {
+            return await _userRepository.Login(login);
+        }
         #endregion
 
     }
