@@ -1,14 +1,8 @@
-﻿using Azure;
-using Microsoft.AspNetCore.Mvc;
-using Microsoft.AspNetCore.RateLimiting;
-using Microsoft.EntityFrameworkCore.Metadata.Internal;
+﻿using Microsoft.AspNetCore.Mvc;
 using OAM.Core.BAL.IService;
-using OAM.Core.Entities;
-using OAM.Core.Models.Base_Models;
 using OAM.Core.Models.Base_Models.API_Requests;
 using OAM.Core.Models.Base_Models.API_Responses;
 using System.Net;
-using System.Reflection.Metadata;
 using helpers = OAM.Core.Helpers;
 namespace OAM_API.Controllers
 {

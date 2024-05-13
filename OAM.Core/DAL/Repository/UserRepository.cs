@@ -52,7 +52,11 @@ namespace OAM.Core.DAL.Repository
                     else
                     {
                         //Check Is User Already Exists
-                        bool isDuplicate = entities.Users.Where(x => x.Email.ToLower() == user.Email.ToLower() && x.UserName.ToLower() == user.UserName.ToLower()).Any();
+                        bool isDuplicate = entities.Users.Where(x => x.UserName.ToLower() == user.UserName.ToLower()).Any();
+                        if (!isDuplicate)
+                        {
+                            isDuplicate = entities.Users.Where(x => x.Email.ToLower() == user.Email.ToLower()).Any();
+                        }
                         if (isDuplicate)
                         {
                             response.Status = HttpStatusCode.BadRequest.ToString();
@@ -68,7 +72,7 @@ namespace OAM.Core.DAL.Repository
                     }
                     entities.SaveChanges();
                 }
-                response.userDetails = new UserDetails()
+                response.userDetails = new UserDetail()
                 {
                     UserName = user.UserName,
                     UserId = Utility.GetGuid(user.UserId),
@@ -106,7 +110,7 @@ namespace OAM.Core.DAL.Repository
             {
                 bool isValid = false;
                 UserDetails userDetails = (from u in entities.Users
-                                           where u.Email == login.Username && u.IsDeleted != true
+                                           where u.UserName == login.Username && u.IsDeleted != true
                                            select new UserDetails
                                            {
                                                UserId = Utility.GetGuid(u.UserId),
